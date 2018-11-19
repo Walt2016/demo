@@ -11,3 +11,12 @@
 5.vue  原理 生命周期 vuex  router
 
 6.wx 微信小程序  开发调试工具  规则
+
+
+
+git学习资料
+1、Git客户端(TortoiseGit)
+https://www.cnblogs.com/xuwenjin/p/8573603.html
+
+2、fork和pr工作流程
+https://www.zhihu.com/question/20431718
