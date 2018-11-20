@@ -1,10 +1,19 @@
 
+// 数组操作
+// map filter sort  reduce
+// push pop shift unshift
+// splice
+// slice
+// indexOf 
+// forEach
+// concat
+// join
+// reverse
+// toString
 
 // splice() 用来改变原数组  
 
 // slice(0) 用来复制
-
-
 
 // reduce迭代器
 var a= [1, 2, 3, 4]
