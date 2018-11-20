@@ -1,10 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
+
 <body>
-	
+    <pre>
+    	参考资料
+    	http://www.w3school.com.cn/js/pro_js_primitivetypes.asp
+    	https://blog.csdn.net/cat_sky/article/details/80572142
+    	https://www.cnblogs.com/libin-1/p/6878057.html
+
+
+数据类型
+字符串、数字、布尔、数组、对象、Null、Undefined
+
+原子类型 引用类型
+原始类型（primitive type）
+Undefined、Null、Boolean、Number 、 String。
+ES6 加入Symbol
+
+
+引用类型统称为object类型，
+细分的话有：
+Object 类型、
+Array 类型、
+Date 类型、
+RegExp 类型、
+Function 类型 等。
+
+两种类型在添加属性时候的区别
+1、引用类型可以动态的给添加属性，
+2、但是基本类型的值是不可变也不可以复制的 
+
+变量的不同内存分配
+原始值：存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。这是因为这些原始类型占据的空间是固定的，所以可将他们存储在较小的内存区域 – 栈中。这样存储便于迅速查寻变量的值。
+引用值：存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存地址。这是因为：引用值的大小会改变，所以不能把它放在栈中，否则会降低变量查寻的速度。相反，放在变量的栈空间中的值是该对象存储在堆中的地址。地址的大小是固定的，所以把它存储在栈中对变量性能无任何负面影响。
+
+
+Vue 组件 data为什么是函数？
+
+null 
+undefined
+Number
+Boolean
+String
+Object
+Array
+
+Date
+
+
+也就是说，js按照存储方式分为值类型和引用类型。那么他们的计算有什么区别呢？
+题目1： var a = 100;
+　　　　var b = a;
+　　　   a = 200;
+　　　　console.log (b);
+题目2： var a = {age : 20};
+　　　　var b = a;
+　　　　b.age = 21;
+　　　　console.log (a.age);
+
+题目1的答案是 100，题目2的答案是21
+
+赋值操作
+原值类型变量使用独立内存空间
+引用类型变量使用公用内存空间。
+
+
+数据类型的判断
+基础类型 typeof 类型判断
+
+typeof 1==="number"
+typeof undefined==="undefined"
+typeof "1"==="string"
+typeof true==="boolean"
+
+
+typeof {}==="object"
+typeof []==="object"
+typeof null=="object"
+typeof document.body==="object"
+typeof document.querySelector("div")==="object"
+
+typeof 1/0==='NaN'
+1/0===window.Infinity
+typeof Infinity==="number"
+typeof NaN==="number"
+
+typeof   (function(){}) ==="function"
+typeof   (new function(){}) ==="object"
+
+Number类型判断
+window.
+Number.isNaN
+Number.isInteger
+Number.isFinite
+Number.isFloat
+Number.POSITIVE_INFINITY 的值为 Infinity。Number.NEGATIVE_INFINITY 的值为 -Infinity。
+
+
+typeof Date()==="string"
+typeof Date==="function"
+typeof String==="function"
+typeof Array==="function"
+typeof new Date()==="object"
+typeof new Array()==="object"
+
+
+parseInt("a")===NaN
+parseInt("a")==parseInt("a")
+false
+
+NaN==NaN==false
+
+instanceof 对象实例判断
+
+// 判断 foo 是否是 Foo 类的实例 , 并且是否是其父类型的实例
+function Aoo(){} 
+function Foo(){} 
+Foo.prototype = new Aoo();//JavaScript 原型继承
+ 
+var foo = new Foo(); 
+console.log(foo instanceof Foo)//true 
+console.log(foo instanceof Aoo)//true
+
+({}) instanceof Ojbect
+
+
+console.log(Object instanceof Object);//true 
+console.log(Function instanceof Function);//true 
+console.log(Number instanceof Number);//false 
+console.log(String instanceof String);//false 
+ 
+console.log(Function instanceof Object);//true 
+ 
+console.log(Foo instanceof Function);//true 
+console.log(Foo instanceof Foo);//false
+
+
+function instance_of(L, R) {//L 表示左表达式，R 表示右表达式
+ var O = R.prototype;// 取 R 的显示原型
+ L = L.__proto__;// 取 L 的隐式原型
+ while (true) { 
+   if (L === null) 
+     return false; 
+   if (O === L)// 这里重点：当 O 严格等于 L 时，返回 true 
+     return true; 
+   L = L.__proto__; 
+ } 
+}
+
+
+ //类型判断 Object.prototype.toString.call
+Object.prototype.toString.call(1)
+"[object Number]"
+Object.prototype.toString.call("a")
+"[object String]"
+Object.prototype.toString.call([])
+"[object Array]"
+Object.prototype.toString.call({})
+"[object Object]"
+Object.prototype.toString.call()
+"[object Undefined]"
+Object.prototype.toString.call(undefined)
+"[object Undefined]"
+Object.prototype.toString.call(null)
+"[object Null]"
+Object.prototype.toString.call(function(){})
+"[object Function]"
+
+Object.prototype.toString.call(Date())
+"[object String]"
+Object.prototype.toString.call(new Date())
+"[object Date]"
+Object.prototype.toString.call(new Array())
+"[object Array]"
+Object.prototype.toString.call(new Object())
+"[object Object]"
+
+Object.prototype.toString.call(NaN)
+"[object Number]"
+Object.prototype.toString.call(Infinity)
+"[object Number]"
+
+Object.prototype.toString.call(document)
+"[object HTMLDocument]"
+Object.prototype.toString.call(document.body)
+"[object HTMLBodyElement]"
+Object.prototype.toString.call(document.querySelector("div"))
+"[object HTMLDivElement]"
+
+var type = function(o) {
+    if (o === null) return 'null';
+    var s = Object.prototype.toString.call(o);
+    var t = s.match(/\[object (.*?)\]/)[1].toLowerCase();
+    return t === 'number' ? isNaN(o) ? 'nan' : !isFinite(o) ? 'infinity' : t : t;
+};
+
+
+
+var Type = (function() {
+                var type = {};
+                ['String', 'Object', 'Number', 'Array','Undefined', 'Function', 'Null', 'Symbol'].forEach(function(t){
+                type['is'+t]=function(o){
+                return Object.prototype.toString.call(obj) == '[object ' + t + ']';
+            }
+            })
+ 
+                return type;
+})();
+
+类型转换
+parseFloat
+parseInt
+Number
+String
+
+
+作用域
+
+数组操作
+map filter sort  reduce
+push pop shift unshift
+splice
+slice
+indexOf 
+forEach
+concat
+join
+reverse
+toString
+
+
+splice() 用来改变原数组  
+方法向/从数组中添加/删除项目，然后返回被删除的项目。
+注释：该方法会改变原始数组。
+arrayObject.splice(index,howmany,item1,.....,itemX)
+slice() 方法可从已有的数组中返回选定的元素。
+复制一个新数组
+slice(0)
+
+arrayObject.slice(start,end)
+splice() 方法与 slice() 方法的作用是不同的，splice() 方法会直接对数组进行修改。
+
+
+参考
+http://www.w3school.com.cn/jsref/jsref_splice.asp
+
+reduce迭代器
+var a= [1, 2, 3, 4]
+a.reduce(function(t,a){return t*a})
+24
+a.reduce(function(t,a){return t+a})
+
+数组对象排序
+var a=[{a:1},{a:2}]
+a.sort(function(a,b){
+	return a.a-b.a
+})
+
+//根据参数排序
+var sortBy=function(key,asc){
+	return function(a,b){
+		return asc?a[key]-b[key]:b[key]-a[key]
+	}
+}
+
+a.sort(sortBy("a"))
+
+事件
+事件捕获 capture
+事件冒泡 pop
+
+addEventListener(eventName,handlers,boolean)
+
+removeEventListener(eventName,handlers)
+//事件解绑
+//不能remove匿名handlers函数 
+//相同事件绑定和解除，需要使用共用函数；
+//共用函数不能带参数；
+
+e.stopPropagation() 阻止事件传播
+e.preventDefault() 阻止默认行为
+e.target() 触点
+e.currentTarget() 事件挂载点
+
+事件委托
+事件绑定到了父节点上。便于处理新增的子节点
+父节点是通过event.target来找对应的子节点的。
+事件处理程序中的this值始终等于currentTarget的值，指向父节点
+
+定时器
+setTimeout
+clearTimeout
+
+//定时器
+var startTime=+new Date();
+var timer;
+var fn=function(){
+	var endTime=+new Date()
+	var offset=endTime-startTime
+	if( offset>10000){
+		timer&&clearTimeout(timer)
+	}
+	console.log(offset)
+	timer=setTimeout(fn,1000)
+}
+
+
+	</pre>
 </body>
+
 </html>
