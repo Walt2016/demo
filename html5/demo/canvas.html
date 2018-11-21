@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>时钟</title>
+    <style>
+        canvas{
+            border: 1px solid transparent;
+        }
+        div{
+            width: 500px;
+            height: 500px;
+            margin:0px auto;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <canvas width="500px" height="500"></canvas>
+</div>
+<script>
+    function _time(){
+        var _date = new Date()
+        var hour = _date.getHours()
+        var min = _date.getMinutes()
+        var s = _date.getSeconds()
+        var x = document.querySelector("canvas")
+        var y = x.getContext("2d")
+        //画图片
+        y.save()
+        y.beginPath()
+        y.strokeStyle="transparent"
+        y.arc(250,250,250,0,Math.PI*2,true)
+        y.clip()
+        var img = new Image()
+        img.src="clock.jpg"
+        y.drawImage(img,0,0,500,500)
+        y.stroke()
+        y.closePath()
+        y.restore()
+        //画分钟节点
+        y.save()
+        y.beginPath()
+        y.translate(250,250)
+        for(var i = 0;i<60;i++){
+            y.rotate(Math.PI/30)
+            y.strokeStyle="pink"
+            y.lineWidth=5
+            y.moveTo(0,-250)
+            y.lineTo(0,-240)
+        }
+        y.stroke()
+        y.closePath()
+        y.restore()
+        //画小时节点
+        y.save()
+        y.beginPath()
+        y.translate(250,250)
+          for(var i = 0;i<12;i++){
+              y.rotate(Math.PI/6)
+              y.strokeStyle="yellow"
+              y.lineWidth=5
+              y.moveTo(0,-250)
+              y.lineTo(0,-230)
+          }
+        y.stroke()
+        y.closePath()
+        y.restore()
+        //画时针
+        y.save()
+        y.beginPath()
+        y.translate(250,250)
+        y.rotate(hour*Math.PI/6)
+        y.strokeStyle="#ff6428"
+        y.lineWidth=6
+        y.moveTo(0,0)
+        y.lineTo(0,-180)
+        y.stroke()
+        y.closePath()
+        y.restore()
+        //画分针
+        y.save()
+        y.beginPath()
+        y.translate(250,250)
+        y.rotate(min*Math.PI/30)
+        y.strokeStyle="green"
+        y.lineWidth=3
+        y.moveTo(0,0)
+        y.lineTo(0,-200)
+        y.stroke()
+        y.closePath()
+        y.restore()
+        //画分针
+        y.save()
+        y.beginPath()
+        y.translate(250,250)
+        y.rotate(s*Math.PI/30)
+        y.strokeStyle="yellow"
+        y.lineWidth=1
+        y.moveTo(0,0)
+        y.lineTo(0,-220)
+        y.stroke()
+        y.closePath()
+        y.restore()
+        //画固定点
+        y.save()
+        y.beginPath()
+        y.translate(250,250)
+        y.strokeStyle="yellow"
+        y.arc(0,0,7,0,Math.PI*2,true)
+        y.fillStyle="red"
+        y.fill()
+        y.stroke()
+        y.closePath()
+        y.restore()
+    }
+    setInterval(function(){_time()},1000);
+</script>
+</body>
+</html>
