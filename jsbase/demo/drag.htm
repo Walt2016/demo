@@ -143,26 +143,59 @@
 }
 
 .btn-group .btn {
-
     background: #dedede;
     padding: 0px 10px;
     font-size: 12px;
     height: 30px;
     line-height: 30px;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     cursor: pointer;
-
-
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: v
 }
 
 .btn-group .btn:hover {
     background: #ccc;
 }
+
+.btn-group .btn .icon {
+    flex-shrink: 0;
+    width: 0;
+    height: 0;
+    border-width: 6px;
+    border-style: solid;
+    border-top-color: black;
+    border-right-color: black;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    margin-right: -10px;
+    display: none;
+}
+.btn-group .btn.rotate .icon{
+        border-top-color: #F5A623;
+    border-right-color: #F5A623;
+}
+
+.btn-group .btn.skew .icon {
+    border-top-color: #88BFFF;
+    border-right-color: #88BFFF;
+}
+
+.btn-group .btn[isactive] .icon {
+    display: block;
+}
 </style>
 
 <body>
     <div class="btn-group">
-        <div class="btn rotate">rotate</div>
+        <div class="btn rotate">rotate
+            <div class="icon"></div>
+        </div>
+        <div class="btn skew">skew
+            <div class="icon"></div>
+        </div>
     </div>
     <div class="customize-overlay center">
         <!--  <div class="definition-chip">
@@ -228,6 +261,8 @@
             this.overlay = document.querySelector(".customize-overlay");
             this.handles = document.querySelectorAll(".resize-handle");
             this.rotateBtn = document.querySelector(".btn.rotate");
+
+             this.btns = document.querySelectorAll(".btn");
             this.setup();
         }
 
@@ -359,10 +394,16 @@
                 this.dragLeft(el, x, y)
                 this.dragTop(el, x, y)
             },
+            // toggleRotate:function(e){
+
+
+            // },
 
             setup: function() {
                 var self = this;
                 console.log(this.rotateBtn)
+
+
                 this.computed();
                 var startHandle = function(act) {
                     return function(e) {
@@ -375,6 +416,21 @@
                         self.computed(e, act);
                     }
                 }
+                var clickHandle = function(e) {
+                    var e = e || event;
+
+                    if (this.getAttribute("isactive")) {
+                        this.removeAttribute("isactive")
+                    } else {
+                        this.setAttribute("isactive", "true")
+                    }
+
+
+                }
+                this.btns.forEach(function(t){
+                    self.addEvent(t,"click",clickHandle)
+                })
+                // this.addEvent(this.rotateBtn, "click", clickHandle)
                 //首字母大写
                 var capitalize = function(word) {
                     return word.substring(0, 1).toUpperCase() + word.substring(1);
@@ -395,6 +451,8 @@
                     self.addEvent(t, "mousedown", startHandle(handleName));
                 })
                 this.addEvent(this.overlay, "mousedown", startHandle("drag"))
+
+
 
 
                 document.onmousemove = function(e) {
