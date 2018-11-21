@@ -55,7 +55,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     /*border: 1px solid transparent;*/
-    border:1px dashed  #ccc;
+    border: 1px dashed #ccc;
 }
 
 .customize-overlay.center {
@@ -134,10 +134,35 @@
 .resize-handle.bottom-right {
     bottom: -6px;
 }
+
+.btn-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+}
+
+.btn-group .btn {
+
+    background: #dedede;
+    padding: 0px 10px;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+
+
+}
+
+.btn-group .btn:hover {
+    background: #ccc;
+}
 </style>
 
 <body>
-    <div>
+    <div class="btn-group">
+        <div class="btn rotate">rotate</div>
     </div>
     <div class="customize-overlay center">
         <!--  <div class="definition-chip">
@@ -201,7 +226,8 @@
                 y: document.documentElement.clientHeight
             };
             this.overlay = document.querySelector(".customize-overlay");
-            this.handles = document.querySelectorAll(".resize-handle")
+            this.handles = document.querySelectorAll(".resize-handle");
+            this.rotateBtn = document.querySelectorAll(".btn.rotate");
             this.setup();
         }
 
@@ -295,8 +321,8 @@
                 // el.style.webkitTransform = "matrix(" + sx + ",0,0," + sy + ",0,0)";
                 el.style.webkitTransform = "matrix(" + sx + ",0,0," + sy + "," + this._me + "," + this._mf + ")";
             },
-            rotate:function(el,deg){
-                el.style.webkitTransform ="rotate("+deg+"deg)"
+            rotate: function(el, deg) {
+                el.style.webkitTransform = "rotate(" + deg + "deg)"
             },
             drag: function(el, x, y) {
                 el.style.left = Math.max(Math.min(x + this._left, this._maxLeft), this._minLeft) + "px";
@@ -336,6 +362,7 @@
 
             setup: function() {
                 var self = this;
+                console.log(this.rotateBtn)
                 this.computed();
                 var startHandle = function(act) {
                     return function(e) {
