@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery-1.8.3.min.js"></script>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .clear:after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .box{
+            width: 720px;
+            height: 52px;
+            margin:0 auto;
+        }
+        .box div{
+            float: left;
+            width: 100px;
+            height: 50px;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 50px;
+        }
+    </style>
+</head>
+<body>
+   <article class="box clear">
+       <div>第一页</div>
+       <div>第二页</div>
+       <div>第三页</div>
+       <div>第四页</div>
+       <div>第五页</div>
+       <div>第六页</div>
+       <div>第七页</div>
+   </article>
+   <script>
+         $("div").mouseover(function(){
+             var _math = ["img/a4.mp3","img/b4.mp3","img/c4.mp3","img/d4.mp3","img/e4.mp3","img/f4.mp3","img/g4.mp3"]
+             var num = $(this).index();
+             $("div").eq(num).append("<audio src="+_math[num]+" autoplay></audio>");
+         })
+         $("div").mouseout(function(){
+            $(this).children("audio").remove();
+         })
+   </script>
+</body>
+</html>
