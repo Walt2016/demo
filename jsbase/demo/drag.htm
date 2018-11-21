@@ -173,8 +173,9 @@
     margin-right: -10px;
     display: none;
 }
-.btn-group .btn.rotate .icon{
-        border-top-color: #F5A623;
+
+.btn-group .btn.rotate .icon {
+    border-top-color: #F5A623;
     border-right-color: #F5A623;
 }
 
@@ -262,7 +263,7 @@
             this.handles = document.querySelectorAll(".resize-handle");
             this.rotateBtn = document.querySelector(".btn.rotate");
 
-             this.btns = document.querySelectorAll(".btn");
+            this.btns = document.querySelectorAll(".btn");
             this.setup();
         }
 
@@ -378,21 +379,39 @@
                 el.style.height = this._height - y + "px"
             },
             dragBottomRight: function(el, x, y) {
-                this.dragRight(el, x, y)
-                this.dragBottom(el, x, y)
+
+                if (this.rotateBtn.getAttribute("isactive")) {
+                    this.rotate(el, x / y)
+                } else {
+                    this.dragRight(el, x, y)
+                    this.dragBottom(el, x, y)
+                }
             },
             dragBottomLeft: function(el, x, y) {
-                this.dragLeft(el, x, y)
-                this.dragBottom(el, x, y)
+                if (this.rotateBtn.getAttribute("isactive")) {
+                    this.rotate(el, x / y)
+                } else {
+                    this.dragLeft(el, x, y)
+                    this.dragBottom(el, x, y)
+                }
+
             },
 
             dragTopRight: function(el, x, y) {
-                this.dragRight(el, x, y)
-                this.dragTop(el, x, y)
+                if (this.rotateBtn.getAttribute("isactive")) {
+                    this.rotate(el, x / y)
+                } else {
+                    this.dragRight(el, x, y)
+                    this.dragTop(el, x, y)
+                }
             },
             dragTopLeft: function(el, x, y) {
-                this.dragLeft(el, x, y)
-                this.dragTop(el, x, y)
+                if (this.rotateBtn.getAttribute("isactive")) {
+                    this.rotate(el, x / y)
+                } else {
+                    this.dragLeft(el, x, y)
+                    this.dragTop(el, x, y)
+                }
             },
             // toggleRotate:function(e){
 
@@ -427,8 +446,8 @@
 
 
                 }
-                this.btns.forEach(function(t){
-                    self.addEvent(t,"click",clickHandle)
+                this.btns.forEach(function(t) {
+                    self.addEvent(t, "click", clickHandle)
                 })
                 // this.addEvent(this.rotateBtn, "click", clickHandle)
                 //首字母大写
