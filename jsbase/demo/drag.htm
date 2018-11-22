@@ -358,7 +358,7 @@
                 el.style.webkitTransform = "matrix(" + sx + ",0,0," + sy + "," + this._me + "," + this._mf + ")";
             },
             rotate: function(el, x,y) {
-                el.style.webkitTransform = "rotate(" +Math.atan2(x,y)*180/Math.PI + "deg)"
+                el.style.webkitTransform = "rotate(" +(Math.atan2(y,x)*180/Math.PI) + "deg)"
             },
             drag: function(el, x, y) {
                 el.style.left = Math.max(Math.min(x + this._left, this._maxLeft), this._minLeft) + "px";
