@@ -357,8 +357,8 @@
                 // el.style.webkitTransform = "matrix(" + sx + ",0,0," + sy + ",0,0)";
                 el.style.webkitTransform = "matrix(" + sx + ",0,0," + sy + "," + this._me + "," + this._mf + ")";
             },
-            rotate: function(el, deg) {
-                el.style.webkitTransform = "rotate(" + deg + "deg)"
+            rotate: function(el, x,y) {
+                el.style.webkitTransform = "rotate(" +Math.atan2(x,y)*180/Math.PI + "deg)"
             },
             drag: function(el, x, y) {
                 el.style.left = Math.max(Math.min(x + this._left, this._maxLeft), this._minLeft) + "px";
@@ -381,7 +381,7 @@
             dragBottomRight: function(el, x, y) {
 
                 if (this.rotateBtn.getAttribute("isactive")) {
-                    this.rotate(el, x / y)
+                    this.rotate(el, x , y)
                 } else {
                     this.dragRight(el, x, y)
                     this.dragBottom(el, x, y)
@@ -389,7 +389,7 @@
             },
             dragBottomLeft: function(el, x, y) {
                 if (this.rotateBtn.getAttribute("isactive")) {
-                    this.rotate(el, x / y)
+                    this.rotate(el, x , y)
                 } else {
                     this.dragLeft(el, x, y)
                     this.dragBottom(el, x, y)
@@ -399,7 +399,7 @@
 
             dragTopRight: function(el, x, y) {
                 if (this.rotateBtn.getAttribute("isactive")) {
-                    this.rotate(el, x / y)
+                    this.rotate(el, x , y)
                 } else {
                     this.dragRight(el, x, y)
                     this.dragTop(el, x, y)
@@ -407,7 +407,7 @@
             },
             dragTopLeft: function(el, x, y) {
                 if (this.rotateBtn.getAttribute("isactive")) {
-                    this.rotate(el, x / y)
+                    this.rotate(el, x , y)
                 } else {
                     this.dragLeft(el, x, y)
                     this.dragTop(el, x, y)
