@@ -264,6 +264,7 @@
             this.rotateBtn = document.querySelector(".btn.rotate");
 
             this.btns = document.querySelectorAll(".btn");
+            this.btnGroup=document.querySelector(".btn-group")
             this.setup();
         }
 
@@ -357,8 +358,11 @@
                 // el.style.webkitTransform = "matrix(" + sx + ",0,0," + sy + ",0,0)";
                 el.style.webkitTransform = "matrix(" + sx + ",0,0," + sy + "," + this._me + "," + this._mf + ")";
             },
-            rotate: function(el, x,y) {
-                el.style.webkitTransform = "rotate(" +(Math.atan2(y,x)*180/Math.PI) + "deg)"
+            rotate: function(el, x, y) {
+                el.style.webkitTransform = "rotate(" + (Math.atan2(y, x) * 180 / Math.PI) + "deg)"
+            },
+            skew: function(el, x, y) {
+                el.style.webkitTransform = "skew(0," + (Math.atan2(y, x) * 180 / Math.PI) + "deg)"
             },
             drag: function(el, x, y) {
                 el.style.left = Math.max(Math.min(x + this._left, this._maxLeft), this._minLeft) + "px";
@@ -379,18 +383,19 @@
                 el.style.height = this._height - y + "px"
             },
             dragBottomRight: function(el, x, y) {
-
-                if (this.rotateBtn.getAttribute("isactive")) {
-                    this.rotate(el, x , y)
-                } else {
+                var transform=this.btnGroup.getAttribute("value")
+                if(transform){
+                    this[transform](el, x, y)
+                }else{
                     this.dragRight(el, x, y)
                     this.dragBottom(el, x, y)
                 }
             },
             dragBottomLeft: function(el, x, y) {
-                if (this.rotateBtn.getAttribute("isactive")) {
-                    this.rotate(el, x , y)
-                } else {
+                var transform=this.btnGroup.getAttribute("value")
+                if(transform){
+                    this[transform](el, x, y)
+                }else{
                     this.dragLeft(el, x, y)
                     this.dragBottom(el, x, y)
                 }
@@ -398,17 +403,19 @@
             },
 
             dragTopRight: function(el, x, y) {
-                if (this.rotateBtn.getAttribute("isactive")) {
-                    this.rotate(el, x , y)
-                } else {
+                var transform=this.btnGroup.getAttribute("value")
+                if(transform){
+                    this[transform](el, x, y)
+                }else{
                     this.dragRight(el, x, y)
                     this.dragTop(el, x, y)
                 }
             },
             dragTopLeft: function(el, x, y) {
-                if (this.rotateBtn.getAttribute("isactive")) {
-                    this.rotate(el, x , y)
-                } else {
+                var transform=this.btnGroup.getAttribute("value")
+                if(transform){
+                    this[transform](el, x, y)
+                }else{
                     this.dragLeft(el, x, y)
                     this.dragTop(el, x, y)
                 }
@@ -420,7 +427,7 @@
 
             setup: function() {
                 var self = this;
-                console.log(this.rotateBtn)
+                // console.log(this.rotateBtn)
 
 
                 this.computed();
@@ -438,11 +445,23 @@
                 var clickHandle = function(e) {
                     var e = e || event;
 
-                    if (this.getAttribute("isactive")) {
-                        this.removeAttribute("isactive")
-                    } else {
-                        this.setAttribute("isactive", "true")
-                    }
+                    self.btns.forEach(function(t) {
+                        if (t == e.target) {
+                            if (t.getAttribute("isactive")) {
+                                t.removeAttribute("isactive")
+                            } else {
+                                t.setAttribute("isactive", "true")
+                                t.parentNode.setAttribute("value", t.className.split(" ")[1])
+                            }
+                        } else {
+                            t.removeAttribute("isactive")
+                        }
+                    })
+                    // if (this.getAttribute("isactive")) {
+                    //     this.removeAttribute("isactive")
+                    // } else {
+                    //     this.setAttribute("isactive", "true")
+                    // }
 
 
                 }
