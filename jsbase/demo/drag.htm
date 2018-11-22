@@ -261,8 +261,6 @@
             };
             this.overlay = document.querySelector(".customize-overlay");
             this.handles = document.querySelectorAll(".resize-handle");
-            this.rotateBtn = document.querySelector(".btn.rotate");
-
             this.btns = document.querySelectorAll(".btn");
             this.btnGroup=document.querySelector(".btn-group")
             this.setup();
@@ -420,16 +418,8 @@
                     this.dragTop(el, x, y)
                 }
             },
-            // toggleRotate:function(e){
-
-
-            // },
-
             setup: function() {
                 var self = this;
-                // console.log(this.rotateBtn)
-
-
                 this.computed();
                 var startHandle = function(act) {
                     return function(e) {
